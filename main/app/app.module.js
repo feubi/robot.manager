@@ -1,8 +1,10 @@
 'use strict';
 
-angular.module('MusicManager', [
+angular.module('robot.manager', [
     'itesoft',
+    'localStorage.Services',
     'ngRoute',
+    'ui.hand',
     'ngSanitize',
     'pascalprecht.translate',
     'ui.bootstrap.dropdown'
@@ -24,9 +26,20 @@ angular.module('MusicManager', [
 
         $translateProvider.useSanitizeValueStrategy();
     }])
+        .config(['ITLocalStorageProvider','$rootScopeProvider',
+            function(ITLocalStorageProvider,$rootScopeProvider){
+                //configuration des providers (url, clé, fichiers)
+                ITLocalStorageProvider.defaultKey = "ROBOT_MANAGER";
+
+
+    }])
+
     .run(['$rootScope', '$route', function ($rootScope, $route) {
         $rootScope.$on('$routeChangeSuccess', function () {
             $rootScope.pageTitle = $route.current.title;
         });
     }]);
+
+
+
 
